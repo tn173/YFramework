@@ -7,12 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "QNDeviceSDK.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface callQN : NSObject
 
 - (void) initializeQNBleApi;
+
+- (void) initializeBleApi;
+
+@property (nonatomic, strong) QNBleApi *bleApi;
+@property (nonatomic, strong) QNConfig *config;
+@property (nonatomic,retain) NSString *macAddress;
+@property int deviceID;
+@property (nonatomic, strong) QNUser *user;
+
+@property (nonatomic, strong) NSMutableDictionary *scanDveices;
 
 @end
 
