@@ -45,4 +45,110 @@
     }];
 }
 
+- (void) startBleDeviceDiscovery{
+    [_bleApi startBleDeviceDiscovery:^(NSError *error) {
+        NSLog(@"startBleDeviceDiscovery!");
+        if (error) {
+            NSLog( @"%@", error );
+           }
+    }];
+}
+
+- (void) stopBleDeviceDiscorvery{
+    [_bleApi stopBleDeviceDiscorvery:^(NSError *error) {
+        NSLog(@"stopBleDeviceDiscorvery!");
+    }];
+}
+
+- (void)onDeviceDiscover:(QNBleDevice *)device {
+    NSLog(@"onDeviceDiscover!");
+    [self.bleApi connectDevice:device user:_user callback:^(NSError *error) {
+        NSLog( @"%@", error );
+    }];
+}
+
+- (void)onBroadcastDeviceDiscover:(QNBleBroadcastDevice *)device {
+    NSLog(@"onBroadcastDeviceDiscover!");
+}
+
+- (void)onStartScan {
+    NSLog(@"onStartScan!");
+}
+
+- (void)onStopScan {
+    NSLog(@"onStopScan!");
+}
+
+- (void)onConnecting:(QNBleDevice *)device {
+    // Start the connection callback
+     NSLog(@"onConnecting!");
+}
+
+- (void)onConnected:(QNBleDevice *)device {
+    //Connected successfully callback
+    NSLog(@"onConnected!");
+}
+
+- (void)onServiceSearchComplete:(QNBleDevice *)device {
+    // Found the service completion callback
+    NSLog(@"onServiceSearchComplete!");
+}
+
+- (void)onDisconnecting:(QNBleDevice *)device {
+    //Disconnecting callbacks
+    NSLog(@"onDisconnecting!");
+}
+
+- (void)onConnectError:(QNBleDevice *)device error:(NSError *)error {
+    //Connection failed callback
+    NSLog(@"onConnectError!");
+}
+
+- (void)onGetUnsteadyWeight:(QNBleDevice *)device weight:(double)weight {
+    NSLog(@"onGetUnsteadyWeight!");
+}
+
+- (void)onGetScaleData:(QNBleDevice *)device data:(QNScaleData *)scaleData {
+    NSLog(@"onGetScaleData!");
+    for (QNScaleItemData *item in [scaleData getAllItem]) {
+        if (item.type == QNScaleTypeWeight && item.value != 0) {
+            NSLog(@"weight = %f",item.value);
+        }
+        else if (item.type == QNScaleTypeBodyFatRate) {
+            NSLog(@"bodyFat = %f",item.value);
+        }
+        else if (item.type == QNScaleTypeBodyWaterRate) {
+            NSLog(@"waterPercentage = %f",item.value);
+        }
+        else if (item.type == QNScaleTypeMuscleMass) {
+            NSLog(@"QNScaleTypeMuscleMass = %f",item.value);
+        }
+
+        else if (item.type == QNScaleTypeBoneMass) {
+            NSLog(@"QNScaleTypeBoneMass = %f",item.value);
+        }
+        else if (item.type == QNScaleTypeBMI) {
+            NSLog(@"QNScaleTypeBMI = %f",item.value);
+        }
+        else if (item.type == QNScaleTypeVisceralFat) {
+            NSLog(@"QNScaleTypeVisceralFat = %f",item.value);
+        }
+    }
+    
+    [_bleApi stopBleDeviceDiscorvery:^(NSError *error) {
+        NSLog( @"%@", error );
+    }];
+}
+
+
+- (void)onGetStoredScale:(QNBleDevice *)device data:(NSArray <QNScaleStoreData *> *)storedDataList {
+    NSLog(@"onGetStoredScale!");
+    
+}
+
+- (void)onGetElectric:(NSUInteger)electric device:(QNBleDevice *)device {
+    NSLog(@"onGetElectric!");
+}
+
+
 @end

@@ -14,8 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface callQN : NSObject
 
 - (void) initializeQNBleApi;
-
 - (void) initializeBleApi;
+- (void) startBleDeviceDiscovery;
+- (void) stopBleDeviceDiscorvery;
 
 @property (nonatomic, strong) QNBleApi *bleApi;
 @property (nonatomic, strong) QNConfig *config;
