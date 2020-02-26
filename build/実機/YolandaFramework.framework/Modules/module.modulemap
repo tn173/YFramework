@@ -1,0 +1,6 @@
+framework module YolandaFramework {
+  umbrella header "YolandaFramework.h"
+
+  export *
+  module * { export * }
+}
